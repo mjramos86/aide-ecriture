@@ -1,0 +1,14 @@
+{
+  "name": "Mots Malins — j’écris sans peur",
+  "short_name": "Mots Malins",
+  "description": "Traitement de texte français avec prédiction de mots illustrée et contextuelle, pour les enfants dyslexiques.",
+  "lang": "fr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fdf8ef",
+  "theme_color": "#d1622a",
+  "icons": [
+    { "src": "./icone.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

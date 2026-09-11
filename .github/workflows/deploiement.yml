@@ -1,0 +1,68 @@
+# Vérifie le projet à chaque envoi, puis publie le site sur GitHub Pages
+# lorsque la branche envoyée est la branche par défaut du dépôt.
+name: Vérification et déploiement
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Un seul déploiement à la fois, sans interrompre celui qui est en cours.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  verification:
+    name: Tests et construction
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Installer les dépendances
+        run: npm ci
+
+      - name: Vérifier les types
+        run: npx tsc -b --noEmit
+
+      - name: Lancer les vérifications du moteur
+        run: npm test
+
+      - name: Construire le site
+        run: npm run build
+
+      - name: Préparer le site pour la publication
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploiement:
+    name: Publication sur GitHub Pages
+    needs: verification
+    # Seule la branche par défaut est mise en ligne.
+    if: github.event_name != 'pull_request' && github.ref_name == github.event.repository.default_branch
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.publication.outputs.page_url }}
+    steps:
+      - name: Activer GitHub Pages si besoin
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Mettre le site en ligne
+        id: publication
+        uses: actions/deploy-pages@v4

@@ -3,12 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mots Malins — j'écris sans peur</title>
-    <meta name="description" content="Traitement de texte français avec prédiction de mots illustrée et contextuelle, pensé pour les enfants dyslexiques." />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>%F0%9F%A6%8A</text></svg>" />
+    <title>Mots Malins — j’écris sans peur</title>
+    <meta
+      name="description"
+      content="Traitement de texte français avec prédiction de mots illustrée et contextuelle, pensé pour aider les enfants dyslexiques à bien orthographier."
+    />
+    <meta name="theme-color" content="#d1622a" />
+    <link rel="icon" type="image/svg+xml" href="/icone.svg" />
+    <link rel="apple-touch-icon" href="/icone.svg" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Mots Malins — j’écris sans peur" />
+    <meta
+      property="og:description"
+      content="Dès la première lettre, des mots illustrés sont proposés en tenant compte du sens de la phrase et du texte. Pour les enfants dyslexiques."
+    />
+    <meta name="twitter:card" content="summary" />
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <p style="font-family: Verdana, sans-serif; padding: 2rem; line-height: 1.8">
+        Mots Malins a besoin de JavaScript pour fonctionner. Activez-le dans votre navigateur, puis rechargez la page.
+      </p>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

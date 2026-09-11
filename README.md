@@ -65,6 +65,40 @@ l'école…), sans base de données.
 
 ---
 
+## Mettre le site en ligne
+
+Le site est publié automatiquement par GitHub Actions, à partir du dépôt.
+
+**Adresse du site : <https://mjramos86.github.io/aide-ecriture/>**
+
+À chaque `git push`, le workflow `.github/workflows/deploiement.yml` :
+
+1. installe les dépendances, vérifie les types, lance `npm test` et construit le site ;
+2. **publie le résultat sur GitHub Pages** — uniquement si la branche envoyée est la
+   branche par défaut du dépôt. Les autres branches et les pull requests sont
+   vérifiées, mais rien n'est mis en ligne.
+
+La première exécution active GitHub Pages toute seule. Si l'organisation ou le
+compte l'interdit, il suffit de l'activer à la main une fois :
+**Settings → Pages → Build and deployment → Source : GitHub Actions**, puis de
+relancer le workflow (onglet **Actions** → *Vérification et déploiement* →
+*Re-run jobs*).
+
+### Publier ailleurs
+
+`npm run build` produit un dossier `dist/` entièrement statique, déposable tel
+quel sur n'importe quel hébergement (Netlify, Vercel, un serveur de l'école, une
+clé USB). Les chemins sont relatifs : le site fonctionne aussi bien à la racine
+d'un domaine que dans un sous-dossier.
+
+### Nom de domaine personnalisé
+
+Ajouter un fichier `public/CNAME` contenant le domaine (par exemple
+`motsmalins.fr`), puis configurer le DNS chez le registrar comme indiqué dans
+Settings → Pages.
+
+---
+
 ## Comment fonctionne la prédiction
 
 Tout est calculé dans le navigateur, en une milliseconde environ par frappe.
