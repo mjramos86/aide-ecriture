@@ -58,11 +58,43 @@ jobs:
       name: github-pages
       url: ${{ steps.publication.outputs.page_url }}
     steps:
+      # GitHub n'autorise pas toujours le jeton du workflow à créer le site
+      # Pages : dans ce cas, l'étape suivante explique quoi faire, une fois.
       - name: Activer GitHub Pages si besoin
+        id: configuration
+        continue-on-error: true
         uses: actions/configure-pages@v5
         with:
           enablement: true
 
+      - name: Expliquer comment activer GitHub Pages
+        if: steps.configuration.outcome == 'failure'
+        run: |
+          {
+            echo "## GitHub Pages n'est pas encore activé sur ce dépôt"
+            echo
+            echo "Le site a bien été construit, mais il ne peut pas être publié tant que"
+            echo "Pages n'est pas activé. C'est une manipulation à faire **une seule fois** :"
+            echo
+            echo "1. ouvrir **Settings → Pages** :"
+            echo "   <https://github.com/${{ github.repository }}/settings/pages>"
+            echo "2. dans **Build and deployment**, choisir la source **GitHub Actions** ;"
+            echo "3. revenir dans l'onglet **Actions** et relancer ce workflow"
+            echo "   (*Re-run all jobs*)."
+            echo
+            echo "Les envois suivants se publieront ensuite tout seuls."
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "::error title=GitHub Pages à activer::Settings → Pages → Source : GitHub Actions, puis relancer ce workflow."
+          exit 1
+
       - name: Mettre le site en ligne
         id: publication
         uses: actions/deploy-pages@v4
+
+      - name: Rappeler l'adresse du site
+        run: |
+          {
+            echo "## Site en ligne"
+            echo
+            echo "<${{ steps.publication.outputs.page_url }}>"
+          } >> "$GITHUB_STEP_SUMMARY"

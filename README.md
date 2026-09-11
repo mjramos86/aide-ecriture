@@ -78,11 +78,19 @@ Le site est publié automatiquement par GitHub Actions, à partir du dépôt.
    branche par défaut du dépôt. Les autres branches et les pull requests sont
    vérifiées, mais rien n'est mis en ligne.
 
-La première exécution active GitHub Pages toute seule. Si l'organisation ou le
-compte l'interdit, il suffit de l'activer à la main une fois :
-**Settings → Pages → Build and deployment → Source : GitHub Actions**, puis de
-relancer le workflow (onglet **Actions** → *Vérification et déploiement* →
-*Re-run jobs*).
+### À faire une seule fois : activer Pages
+
+GitHub n'autorise pas un workflow à créer lui-même le site Pages d'un dépôt.
+La toute première publication demande donc une manipulation, une seule fois :
+
+1. ouvrir [**Settings → Pages**](https://github.com/mjramos86/aide-ecriture/settings/pages) ;
+2. dans **Build and deployment**, choisir la source **GitHub Actions** ;
+3. dans l'onglet **Actions**, relancer le workflow *Vérification et déploiement*
+   (**Re-run all jobs**).
+
+Tant que ce réglage n'est pas fait, le workflow construit bien le site mais
+s'arrête sur un message qui rappelle ces trois étapes. Ensuite, chaque `git push`
+met le site à jour tout seul.
 
 ### Publier ailleurs
 
