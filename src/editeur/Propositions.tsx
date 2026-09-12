@@ -6,7 +6,8 @@ interface Props {
   propositions: Proposition[];
   selection: number;
   colorationSyllabes: boolean;
-  position: { x: number; y: number } | null;
+  /** Ligne où se trouve le curseur : y = bas de la ligne, hauteur de la ligne. */
+  position: { x: number; y: number; hauteurLigne: number } | null;
   onChoisir: (index: number) => void;
   onSurvoler: (index: number) => void;
   onEcouter: (mot: string) => void;
@@ -36,20 +37,29 @@ export function Propositions({ propositions, selection, colorationSyllabes, posi
 
   if (!propositions.length || !position) return null;
 
-  // On garde la liste dans l’écran, même près du bord droit ou du bas
+  // La liste doit rester entièrement visible : ni sous le bord de l’écran,
+  // ni par-dessus la barre d’outils. On choisit le côté le plus dégagé et on
+  // limite la hauteur de la liste au lieu de la déplacer n’importe où.
   const largeur = 290;
-  const x = Math.min(Math.max(8, position.x - 12), window.innerWidth - largeur - 8);
-  const hauteurEstimee = Math.min(propositions.length, 8) * 56 + 46;
-  const versLeHaut = position.y + hauteurEstimee > window.innerHeight - 10;
-  const y = versLeHaut ? Math.max(8, position.y - hauteurEstimee - 28) : position.y + 6;
+  const marge = 10;
+  const hauteurCadre = 86; // entête + ligne d’explication
+  const x = Math.min(Math.max(marge, position.x - 12), window.innerWidth - largeur - marge);
+  const hautLigne = position.y - position.hauteurLigne;
+  const espaceBas = window.innerHeight - position.y - marge;
+  const espaceHaut = hautLigne - marge;
+  const versLeHaut = espaceBas < 200 && espaceHaut > espaceBas;
+  const hauteurListe = Math.max(96, (versLeHaut ? espaceHaut : espaceBas) - hauteurCadre - 6);
+  const placement = versLeHaut
+    ? { bottom: window.innerHeight - hautLigne + 6 }
+    : { top: position.y + 6 };
 
   return (
-    <div className="propositions" id="liste-propositions" style={{ left: x, top: y, width: largeur }} role="listbox" aria-label="Propositions de mots">
+    <div className="propositions" id="liste-propositions" style={{ left: x, width: largeur, ...placement }} role="listbox" aria-label="Propositions de mots">
       <div className="propositions-entete">
         <span>Choisis ton mot</span>
         <kbd>Tab</kbd>
       </div>
-      <ul ref={liste}>
+      <ul ref={liste} style={{ maxHeight: hauteurListe }}>
         {propositions.map((p, i) => (
           <li key={p.forme}>
             <button

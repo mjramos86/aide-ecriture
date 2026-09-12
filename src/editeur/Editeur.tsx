@@ -16,7 +16,7 @@ interface Props {
 interface EtatPrediction {
   propositions: Proposition[];
   contexte: ContexteEcriture | null;
-  position: { x: number; y: number } | null;
+  position: { x: number; y: number; hauteurLigne: number } | null;
   hautLigne: number;
   hauteurLigne: number;
 }
@@ -41,7 +41,7 @@ export function Editeur({ valeur, onChangement, parametres }: Props) {
       tolerance: parametres.tolerance,
     });
     const p = positionCurseur(z, contexte.debutMot);
-    setEtat({ propositions, contexte, position: { x: p.x, y: p.y }, hautLigne: p.hautLigne, hauteurLigne: p.hauteurLigne });
+    setEtat({ propositions, contexte, position: { x: p.x, y: p.y, hauteurLigne: p.hauteurLigne }, hautLigne: p.hautLigne, hauteurLigne: p.hauteurLigne });
     setSelection(0);
   }, [parametres.nombrePropositions, parametres.minCaracteres, parametres.motSuivant, parametres.tolerance]);
 

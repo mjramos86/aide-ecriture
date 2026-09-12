@@ -1,6 +1,6 @@
 {
-  "name": "Mots Malins — j’écris sans peur",
-  "short_name": "Mots Malins",
+  "name": "Les mots rusés — j’écris sans peur",
+  "short_name": "Les mots rusés",
   "description": "Traitement de texte français avec prédiction de mots illustrée et contextuelle, pour les enfants dyslexiques.",
   "lang": "fr",
   "start_url": "./",

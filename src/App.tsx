@@ -135,7 +135,7 @@ export function App() {
       <header className="entete">
         <div className="marque">
           <span aria-hidden="true">🦊</span>
-          <span className="marque-nom">Mots Malins</span>
+          <span className="marque-nom">Les mots rusés</span>
         </div>
         <input
           className="titre-document"

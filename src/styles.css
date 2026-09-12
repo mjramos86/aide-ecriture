@@ -154,7 +154,7 @@ kbd {
   background: var(--accent-clair); font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
   letter-spacing: 0.06em; color: var(--accent-fonce);
 }
-.propositions ul { list-style: none; margin: 0; padding: 0.3rem; max-height: 22rem; overflow-y: auto; }
+.propositions ul { list-style: none; margin: 0; padding: 0.3rem; max-height: 22rem; overflow-y: auto; overscroll-behavior: contain; }
 .propositions li { display: flex; align-items: center; gap: 0.2rem; }
 .proposition {
   flex: 1; min-width: 0; display: flex; align-items: center; gap: 0.7rem; text-align: left;
@@ -237,4 +237,21 @@ kbd {
   .panneau { width: 100%; border-left: none; border-top: 2px solid var(--trait); }
   .zone-principale { padding: 0.8rem 0.8rem 0.4rem; }
   .titre-document { order: 3; width: 100%; flex-basis: 100%; }
+}
+
+@media (max-width: 600px) {
+  /* Sur un téléphone, chaque pixel doit aller à la zone d’écriture. */
+  .entete { padding: 0.45rem 0.6rem; gap: 0.4rem 0.5rem; }
+  .marque { font-size: 1rem; }
+  .marque span[aria-hidden] { font-size: 1.3rem; }
+  .compteur { display: none; }
+  .bouton { padding: 0.4rem 0.7rem; font-size: 0.85rem; }
+  .titre-document { order: 2; font-size: 0.95rem; padding: 0.35rem 0.5rem; }
+  .actions { order: 3; width: 100%; justify-content: space-between; }
+  .documents { max-height: 7rem; padding: 0.5rem 0.6rem; }
+  .documents-entete { margin-bottom: 0.45rem; }
+  .documents li { flex: 0 0 9.5rem; }
+  .document { padding: 0.4rem 0.5rem; }
+  .astuce { font-size: 0.78rem; line-height: 1.7; }
+  .zone-texte { padding: 1rem 1.1rem; }
 }

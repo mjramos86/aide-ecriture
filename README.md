@@ -1,4 +1,4 @@
-# Mots Malins 🦊
+# Les mots rusés 🦊
 
 Traitement de texte en ligne pour aider les enfants dyslexiques à écrire en français.
 
@@ -102,7 +102,7 @@ d'un domaine que dans un sous-dossier.
 ### Nom de domaine personnalisé
 
 Ajouter un fichier `public/CNAME` contenant le domaine (par exemple
-`motsmalins.fr`), puis configurer le DNS chez le registrar comme indiqué dans
+`lesmotsruses.fr`), puis configurer le DNS chez le registrar comme indiqué dans
 Settings → Pages.
 
 ---
