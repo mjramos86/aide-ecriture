@@ -165,7 +165,7 @@ export const BIGRAMMES: Record<string, string> = {
   matin: 'je il elle on nous',
   soir: 'je il elle on nous',
   été: 'très bien content malade dernier',
-  fait: 'beau chaud froid un une des très mal',
+  fait: 'beau chaud froid peur un une des très mal',
 };
 
 /**

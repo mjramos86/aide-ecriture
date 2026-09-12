@@ -1,11 +1,14 @@
 import { useEffect, useRef } from 'react';
 import type { Proposition } from '../prediction/moteur';
 import { syllabes } from '../prediction/phonetique';
+import { Illustration } from './Illustration';
+import type { Parametres } from '../parametres';
 
 interface Props {
   propositions: Proposition[];
   selection: number;
   colorationSyllabes: boolean;
+  illustrations: Parametres['illustrations'];
   /** Ligne où se trouve le curseur : y = bas de la ligne, hauteur de la ligne. */
   position: { x: number; y: number; hauteurLigne: number } | null;
   onChoisir: (index: number) => void;
@@ -27,7 +30,7 @@ function MotColore({ mot }: { mot: string }) {
   );
 }
 
-export function Propositions({ propositions, selection, colorationSyllabes, position, onChoisir, onSurvoler, onEcouter }: Props) {
+export function Propositions({ propositions, selection, colorationSyllabes, illustrations, position, onChoisir, onSurvoler, onEcouter }: Props) {
   const liste = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
@@ -73,7 +76,7 @@ export function Propositions({ propositions, selection, colorationSyllabes, posi
               role="option"
               aria-selected={i === selection}
             >
-              <span className="illustration" aria-hidden="true">{p.emoji}</span>
+              <Illustration emoji={p.emoji} lemme={p.lemme} abstrait={p.abstrait} mode={illustrations} />
               <span className="mot">{colorationSyllabes ? <MotColore mot={p.forme} /> : p.forme}</span>
               <span className="rang">{i + 1}</span>
             </button>

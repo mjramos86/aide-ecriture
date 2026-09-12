@@ -37,6 +37,22 @@ jobs:
       - name: Lancer les vérifications du moteur
         run: npm test
 
+      # Les pictogrammes ne sont pas versionnés : on les récupère ici, et on
+      # les garde en cache d'une publication à l'autre. Si ARASAAC est
+      # injoignable, le site se construit quand même, avec les emojis.
+      - name: Réutiliser les pictogrammes déjà téléchargés
+        uses: actions/cache@v4
+        with:
+          path: |
+            public/pictos
+            src/lexique/pictogrammes.json
+            src/lexique/pictogrammes-absents.json
+          key: pictogrammes-${{ hashFiles('src/lexique/noms.ts', 'src/lexique/verbes.ts', 'src/lexique/mots.ts') }}
+          restore-keys: pictogrammes-
+
+      - name: Récupérer les pictogrammes ARASAAC
+        run: npm run pictogrammes -- --tolerant
+
       - name: Construire le site
         run: npm run build
 

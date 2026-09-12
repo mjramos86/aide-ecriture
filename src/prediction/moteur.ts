@@ -3,7 +3,7 @@
  * et de tout ce que le contexte apprend (sens de la phrase, thème du texte,
  * grammaire, habitudes de l'enfant).
  */
-import { lexique, specificite, type MotForme, EMOJI_THEME } from '../lexique';
+import { lexique, specificite, estAbstrait, type MotForme, EMOJI_THEME } from '../lexique';
 import { analyser, suitesProbables, groupesDuMot, type ContexteEcriture, type Attente } from './analyse';
 import { THEMES_NON_TOPIQUES } from '../lexique/contexte';
 import { normaliser, phonetiser, similaritePrefixe, sontConfondues } from './phonetique';
@@ -23,6 +23,8 @@ export interface Proposition {
   approche: boolean;
   /** Position à partir de laquelle remplacer le texte (utile aux expressions). */
   debut: number;
+  /** Mot difficile à illustrer par un emoji : un pictogramme sera plus clair. */
+  abstrait: boolean;
 }
 
 export interface OptionsPrediction {
@@ -209,6 +211,7 @@ export function predire(texte: string, position: number, optionsPartielles: Part
       raison,
       approche,
       debut: debut ?? ctx.debutMot,
+      abstrait: estAbstrait(m),
     });
   }
 
@@ -256,6 +259,7 @@ function motSuivant(ctx: ContexteEcriture, options: OptionsPrediction): Proposit
       raison: `souvent après « ${ctx.precedent} »`,
       approche: false,
       debut: ctx.debutMot,
+      abstrait: estAbstrait(meilleur),
     });
   }
   return trierEtLimiter(out, Math.min(options.nombre, 5));

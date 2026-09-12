@@ -3,7 +3,8 @@
  * Aucune dépendance de test : le script s’exécute dans Node et sort en
  * erreur si une vérification échoue.
  */
-import { lexique } from '../src/lexique';
+import { lexique, estAbstrait, motsAIllustrer } from '../src/lexique';
+import { pictogrammeDe } from '../src/lexique/pictogrammes';
 import { predire } from '../src/prediction/moteur';
 import { conjuguer, pluriel, feminin, plurielAdj } from '../src/lexique/flexion';
 import { phonetiser, syllabes, similaritePrefixe } from '../src/prediction/phonetique';
@@ -41,6 +42,19 @@ verifier('le lexique contient plus de 12 000 formes', lex.formes.length > 12000,
 verifier('les mots courants sont illustrés', (lex.parNorm.get('chien') ?? []).some((m) => m.emoji === '🐶'));
 verifier('les expressions figées sont présentes', lex.parNorm.has('ilya'), 'expression « il y a » absente');
 verifier('les groupes nominaux restent entiers', lex.parNorm.has('pommedeterre'), '« pomme de terre » a été découpée');
+
+// ── Illustrations ────────────────────────────────────────────────────────
+function formeDe(mot: string) {
+  return lex.formes.find((m) => m.forme === mot)!;
+}
+verifier('un mot concret garde son emoji', !estAbstrait(formeDe('pomme')));
+verifier('un mot d’émotion demande un pictogramme', estAbstrait(formeDe('peur')));
+verifier('un mot-outil demande un pictogramme', estAbstrait(formeDe('parce que')));
+const aIllustrer = motsAIllustrer();
+verifier('la liste à illustrer est fournie', aIllustrer.length > 300, `${aIllustrer.length} mots`);
+verifier('elle contient les mots abstraits', ['peur', 'avant', 'parce que'].every((m) => aIllustrer.includes(m)));
+verifier('elle écarte les mots concrets', !['pomme', 'chien', 'vélo'].some((m) => aIllustrer.includes(m)));
+verifier('un mot sans pictogramme n’en réclame pas', pictogrammeDe('motquinexistepas') === undefined);
 
 // ── Morphologie ──────────────────────────────────────────────────────────
 egal('pluriel régulier', pluriel('fraise'), 'fraises');

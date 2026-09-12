@@ -8,6 +8,8 @@ export interface Parametres {
   theme: 'clair' | 'creme' | 'bleu' | 'sombre';
   reglette: boolean;
   colorationSyllabes: boolean;
+  /** emoji : toujours des emojis ; mixte : pictogramme pour les mots abstraits ; pictogramme : dès qu'il en existe un. */
+  illustrations: 'emoji' | 'mixte' | 'pictogramme';
   /** Prédiction */
   nombrePropositions: number;
   minCaracteres: number;
@@ -28,6 +30,7 @@ export const PARAMETRES_DEFAUT: Parametres = {
   theme: 'creme',
   reglette: false,
   colorationSyllabes: true,
+  illustrations: 'mixte',
   nombrePropositions: 6,
   minCaracteres: 1,
   motSuivant: true,

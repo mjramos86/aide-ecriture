@@ -28,6 +28,8 @@ export interface MotForme {
   freq: number;
   themes: string[];
   emoji?: string;
+  /** L'emoji représente vraiment ce mot-là (et non son thème, faute de mieux). */
+  emojiPropre?: boolean;
   norm: string;
   phon: string;
 }
@@ -81,6 +83,22 @@ function themes(t: string): string[] {
   return v;
 }
 
+/**
+ * Thèmes dont les mots ne se laissent pas illustrer par un emoji :
+ * un pictogramme dessiné dit « avant », « peur » ou « parce que »
+ * beaucoup mieux qu'un symbole détourné.
+ */
+const THEMES_ABSTRAITS = new Set([
+  'idée', 'émotion', 'logique', 'quantité', 'manière', 'qualité', 'état',
+  'temps', 'courant', 'outil', 'nombre', 'santé',
+]);
+
+/** Ce mot gagnerait à être illustré par un pictogramme plutôt qu'un emoji. */
+export function estAbstrait(m: MotForme): boolean {
+  if (!m.emojiPropre) return true;
+  return m.themes.some((t) => THEMES_ABSTRAITS.has(t));
+}
+
 function creer(forme: string, lemme: string, pos: Pos, freq: number, th: string[], emoji: string | undefined, extra: Partial<MotForme> = {}): MotForme {
   const ajustee = freq * coefficientFrequence(lemme);
   return { forme, lemme, pos, freq: Math.max(1, Math.round(ajustee)), themes: th, emoji, norm: normaliser(forme), phon: phonetiser(forme), ...extra };
@@ -106,10 +124,11 @@ function construire(): MotForme[] {
       if (!mot) continue;
       const motPropre = mot.replace(/_/g, ' ');
       const ill = emoji || EMOJI_THEME[theme];
+      const propre = Boolean(emoji);
       const genreT = (genre || 'm') as Genre;
-      out.push(creer(motPropre, motPropre, 'nom', base, th, ill, { genre: genreT, nombre: 's' }));
+      out.push(creer(motPropre, motPropre, 'nom', base, th, ill, { genre: genreT, nombre: 's', emojiPropre: propre }));
       const pl = plurielForce !== undefined && plurielForce !== '' ? plurielForce : pluriel(motPropre);
-      out.push(creer(pl, motPropre, 'nom', base * (pl === motPropre ? 0.8 : 0.85), th, ill, { genre: genreT, nombre: 'p' }));
+      out.push(creer(pl, motPropre, 'nom', base * (pl === motPropre ? 0.8 : 0.85), th, ill, { genre: genreT, nombre: 'p', emojiPropre: propre }));
     }
   }
 
@@ -122,15 +141,16 @@ function construire(): MotForme[] {
       const [mot, femForce, emoji] = brut.split(':');
       if (!mot) continue;
       const ill = emoji || EMOJI_THEME[theme];
+      const propre = Boolean(emoji);
       const fs = femForce || feminin(mot);
       const mp = plurielAdj(mot);
       const fp = ADJ_IRREG[mot] ? ADJ_IRREG[mot][2] : plurielAdj(fs, true);
-      out.push(creer(mot, mot, 'adj', base, th, ill, { genre: 'm', nombre: 's' }));
-      out.push(creer(fs, mot, 'adj', base * 0.9, th, ill, { genre: 'f', nombre: 's' }));
-      out.push(creer(mp, mot, 'adj', base * 0.78, th, ill, { genre: 'm', nombre: 'p' }));
-      out.push(creer(fp, mot, 'adj', base * 0.72, th, ill, { genre: 'f', nombre: 'p' }));
+      out.push(creer(mot, mot, 'adj', base, th, ill, { ...{ genre: 'm', nombre: 's' }, emojiPropre: propre }));
+      out.push(creer(fs, mot, 'adj', base * 0.9, th, ill, { ...{ genre: 'f', nombre: 's' }, emojiPropre: propre }));
+      out.push(creer(mp, mot, 'adj', base * 0.78, th, ill, { ...{ genre: 'm', nombre: 'p' }, emojiPropre: propre }));
+      out.push(creer(fp, mot, 'adj', base * 0.72, th, ill, { ...{ genre: 'f', nombre: 'p' }, emojiPropre: propre }));
       const irr = ADJ_IRREG[mot];
-      if (irr && irr[3]) out.push(creer(irr[3], mot, 'adj', base * 0.6, th, ill, { genre: 'm', nombre: 's' }));
+      if (irr && irr[3]) out.push(creer(irr[3], mot, 'adj', base * 0.6, th, ill, { genre: 'm', nombre: 's', emojiPropre: propre }));
     }
   }
 
@@ -150,7 +170,7 @@ function construire(): MotForme[] {
       const groupe = Number(groupeS) || 1;
       for (const f of conjuguer(inf, groupe)) {
         const poids = POIDS_TEMPS[f.temps] * (f.pers ? POIDS_PERS[f.pers - 1] : 1);
-        out.push(creer(f.forme, inf, 'verbe', base * poids, th, ill, { temps: f.temps, pers: f.pers }));
+        out.push(creer(f.forme, inf, 'verbe', base * poids, th, ill, { temps: f.temps, pers: f.pers, emojiPropre: Boolean(emoji) }));
       }
     }
   }
@@ -163,7 +183,7 @@ function construire(): MotForme[] {
       if (!brut.trim()) continue;
       const [mot, emoji] = brut.split(':');
       if (!mot) continue;
-      out.push(creer(mot.replace(/_/g, ' '), mot, 'adv', base, th, emoji || EMOJI_THEME[theme]));
+      out.push(creer(mot.replace(/_/g, ' '), mot, 'adv', base, th, emoji || EMOJI_THEME[theme], { emojiPropre: Boolean(emoji) }));
     }
   }
 
@@ -180,7 +200,7 @@ function construire(): MotForme[] {
       const [mot, emoji] = brut.split(':');
       if (!mot) continue;
       const expr = mot.replace(/_/g, ' ');
-      out.push(creer(expr, expr, 'expr', freqGroupe * 11, th, emoji || '💬'));
+      out.push(creer(expr, expr, 'expr', freqGroupe * 11, th, emoji || '💬', { emojiPropre: Boolean(emoji) }));
     }
   }
 
@@ -242,6 +262,19 @@ export function lexique(): IndexLexical {
   for (const [t, l] of lemmesParTheme) tailleThemes.set(t, l.size);
   cache = { formes, tailleThemes, parLettre, parSon, parNorm, multiMots, emojiParLemme };
   return cache;
+}
+
+/**
+ * Lemmes qui méritent un pictogramme, du plus fréquent au moins fréquent.
+ * C'est cette liste que le script `npm run pictogrammes` va chercher chez ARASAAC.
+ */
+export function motsAIllustrer(): string[] {
+  const parLemme = new Map<string, number>();
+  for (const m of lexique().formes) {
+    if (!estAbstrait(m)) continue;
+    parLemme.set(m.lemme, Math.max(parLemme.get(m.lemme) ?? 0, m.freq));
+  }
+  return [...parLemme.entries()].sort((a, b) => b[1] - a[1]).map(([lemme]) => lemme);
 }
 
 /**

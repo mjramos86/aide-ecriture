@@ -9,7 +9,8 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "typecheck": "tsc -b --noEmit false --emitDeclarationOnly false --pretty",
-    "test": "esbuild tests/verification.ts --bundle --platform=node --format=esm --outfile=node_modules/.cache/verification.mjs --log-level=error && node node_modules/.cache/verification.mjs"
+    "test": "esbuild tests/verification.ts --bundle --platform=node --format=esm --outfile=node_modules/.cache/verification.mjs --log-level=error && node node_modules/.cache/verification.mjs",
+    "pictogrammes": "esbuild scripts/pictogrammes.ts --bundle --platform=node --format=esm --outfile=node_modules/.cache/pictogrammes.mjs --log-level=error && node node_modules/.cache/pictogrammes.mjs"
   },
   "dependencies": {
     "docx": "^9.5.1",

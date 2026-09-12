@@ -1,12 +1,19 @@
 import { useState } from 'react';
 import { POLICES, type Parametres } from './parametres';
 import { ajouterMot, motsPersonnels, supprimerMot, oublierApprentissage } from './prediction/perso';
+import { CREDIT_ARASAAC, nombreDePictogrammes } from './lexique/pictogrammes';
 
 interface Props {
   parametres: Parametres;
   onChangement: (p: Parametres) => void;
   onFermer: () => void;
 }
+
+const ILLUSTRATIONS: { id: Parametres['illustrations']; nom: string; aide: string }[] = [
+  { id: 'emoji', nom: 'Emojis', aide: 'des images simples et colorées' },
+  { id: 'mixte', nom: 'Les deux', aide: 'un pictogramme pour les mots difficiles à dessiner, un emoji pour le reste' },
+  { id: 'pictogramme', nom: 'Pictogrammes', aide: 'des pictogrammes ARASAAC dès qu’il en existe un' },
+];
 
 const THEMES: { id: Parametres['theme']; nom: string }[] = [
   { id: 'creme', nom: 'Crème' },
@@ -90,6 +97,35 @@ export function PanneauParametres({ parametres, onChangement, onFermer }: Props)
         </div>
         <Bascule label="Règle de lecture" aide="surligne la ligne où j’écris" actif={parametres.reglette} onChange={(reglette) => maj({ reglette })} />
         <Bascule label="Syllabes en couleurs" aide="dans la liste des mots proposés" actif={parametres.colorationSyllabes} onChange={(colorationSyllabes) => maj({ colorationSyllabes })} />
+      </section>
+
+      <section>
+        <h3>🖼️ Illustrations des mots</h3>
+        <div className="reglage">
+          <div className="choix-themes">
+            {ILLUSTRATIONS.map((i) => (
+              <button
+                key={i.id}
+                type="button"
+                className={'puce-theme' + (parametres.illustrations === i.id ? ' active' : '')}
+                onClick={() => maj({ illustrations: i.id })}
+                title={i.aide}
+              >
+                {i.nom}
+              </button>
+            ))}
+          </div>
+          <p className="aide">{ILLUSTRATIONS.find((i) => i.id === parametres.illustrations)?.aide}</p>
+        </div>
+        {nombreDePictogrammes() === 0 ? (
+          <p className="aide">
+            Aucun pictogramme n’est encore installé : les emojis restent affichés. La commande
+            <code> npm run pictogrammes </code> les récupère auprès d’ARASAAC.
+          </p>
+        ) : (
+          <p className="aide">{nombreDePictogrammes()} mots illustrés par un pictogramme.</p>
+        )}
+        <p className="credit">{CREDIT_ARASAAC}</p>
       </section>
 
       <section>

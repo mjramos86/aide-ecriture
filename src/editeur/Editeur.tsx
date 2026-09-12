@@ -152,6 +152,7 @@ export function Editeur({ valeur, onChangement, parametres }: Props) {
           propositions={etat.propositions}
           selection={selection}
           colorationSyllabes={parametres.colorationSyllabes}
+          illustrations={parametres.illustrations}
           position={etat.position}
           onChoisir={inserer}
           onSurvoler={setSelection}

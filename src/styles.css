@@ -163,6 +163,10 @@ kbd {
 .proposition:hover, .proposition.active { background: var(--accent-clair); }
 .proposition.active { box-shadow: inset 0 0 0 2px var(--accent); }
 .proposition .illustration { font-size: 1.7rem; line-height: 1; width: 2rem; text-align: center; }
+.proposition .illustration.picto {
+  width: 2.2rem; height: 2.2rem; object-fit: contain; border-radius: 6px;
+  background: #fff; padding: 1px; flex-shrink: 0;
+}
 .proposition .mot { flex: 1; font-size: 1.25rem; font-weight: 600; overflow: hidden; text-overflow: ellipsis; }
 .proposition .rang { font-size: 0.75rem; color: var(--texte-doux); }
 .proposition.approche .mot { font-style: italic; }
@@ -190,6 +194,8 @@ kbd {
 .panneau section { border-bottom: 1px solid var(--trait); padding-bottom: 1rem; }
 .panneau section:last-child { border-bottom: none; }
 .panneau .aide { font-size: 0.82rem; color: var(--texte-doux); margin: 0 0 0.6rem; line-height: 1.5; }
+.panneau .aide code { font-size: 0.95em; background: var(--fond-page); border: 1px solid var(--trait); border-radius: 5px; }
+.panneau .credit { font-size: 0.74rem; color: var(--texte-doux); line-height: 1.5; margin: 0.4rem 0 0; opacity: 0.85; }
 
 .reglage { display: block; margin-bottom: 0.85rem; }
 .reglage-nom { display: flex; justify-content: space-between; font-size: 0.88rem; margin-bottom: 0.3rem; }

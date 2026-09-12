@@ -16,7 +16,9 @@ serveur, aucune donnée qui sort de l'ordinateur.
 ## Ce que l'application sait faire
 
 ### Aider à écrire le bon mot
-- **Propositions dès la 1ʳᵉ lettre**, avec une illustration à côté de chaque mot.
+- **Propositions dès la 1ʳᵉ lettre**, avec une illustration à côté de chaque mot :
+  un emoji pour les mots concrets (🍓 fraise), un **pictogramme ARASAAC** pour
+  ceux qu'un emoji illustre mal (« avant », « peur », « parce que »).
 - **Contexte de la phrase** : accord en genre et en nombre après un déterminant
   (« la f… » → fraise, « les f… » → fraises), personne du verbe après un pronom
   (« nous a… » → allons, avons), participe passé après un auxiliaire, infinitif
@@ -33,6 +35,38 @@ serveur, aucune donnée qui sort de l'ordinateur.
   de mots, remontent peu à peu dans la liste.
 - **Dictionnaire personnel** : prénoms, animal de compagnie, mots du projet de
   classe, avec leur emoji.
+
+### Illustrer les mots, y compris les mots abstraits
+
+Un emoji dit très bien « pomme » ou « chien ». Il dit mal « parce que », « avant »
+ou « toujours ». Pour ces mots-là, l'application affiche un **pictogramme
+ARASAAC**, dessiné pour la communication et bien plus lisible qu'un symbole
+détourné. Trois réglages : *Emojis*, *Les deux* (par défaut : pictogramme
+seulement quand il apporte quelque chose) et *Pictogrammes*.
+
+Les images ne sont pas versionnées dans le dépôt : `npm run pictogrammes` les
+récupère auprès d'ARASAAC, et la publication du site le fait automatiquement.
+Tant qu'elles sont absentes — dépôt fraîchement cloné, ARASAAC injoignable —
+l'application affiche les emojis : rien ne casse jamais.
+
+```bash
+npm run pictogrammes                 # récupère les mots manquants
+npm run pictogrammes -- --limite=50  # s'arrête après 50 mots
+npm run pictogrammes -- --force      # refait aussi les mots déjà connus
+```
+
+Le script ne retient un pictogramme que si **l'un de ses mots-clés français est
+exactement le mot cherché** : mieux vaut un emoji qu'une image approximative
+devant un enfant qui apprend à lire. Les mots sans équivalent exact sont notés
+dans `src/lexique/pictogrammes-absents.json` pour ne pas être redemandés, et
+toute correction manuelle se fait dans `src/lexique/pictogrammes-corrections.json`
+(`"mot": numéro` pour imposer un pictogramme, `"mot": null` pour revenir à l'emoji).
+
+> **Licence des pictogrammes.** Les pictogrammes sont l'œuvre de Sergio Palao
+> pour ARASAAC (<https://arasaac.org>), propriété du Gouvernement d'Aragon,
+> diffusés sous licence **CC BY-NC-SA**. L'attribution est affichée dans les
+> réglages de l'application. La clause **NC** interdit un usage commercial :
+> un usage scolaire, familial ou associatif est couvert, la revente ne l'est pas.
 
 ### Aider à lire ce qu'on écrit
 - Police, taille, interligne, espacement des lettres et des mots réglables
@@ -120,6 +154,7 @@ conditionnel, impératif, participes — soit **plus de 14 000 formes**.
 | Fichier | Contenu |
 | --- | --- |
 | `noms.ts`, `verbes.ts`, `mots.ts` | le vocabulaire, en format compact `mot:genre:emoji` |
+| `pictogrammes.json` | table mot → pictogramme ARASAAC, produite par `npm run pictogrammes` |
 | `frequents.ts` | deux niveaux de fréquence (« cuisine » est plus courant que « caserne ») |
 | `contexte.ts` | thèmes, enchaînements de mots fréquents, groupes d'associations |
 | `flexion.ts` | pluriels, féminins, conjugueur (groupes 1, 2, -partir, -ouvrir, -attendre, irréguliers) |
@@ -192,8 +227,10 @@ efface les textes : pensez à exporter les documents importants.
   l'ordinateur (aucune police n'est téléchargée depuis un serveur tiers).
 - Le lexique couvre le vocabulaire d'un élève de cycle 2 et 3 ; un texte très
   spécialisé demandera des ajouts dans « Mes mots à moi ».
-- Les illustrations sont des emojis : concrètes pour les objets et les animaux,
-  plus symboliques pour les mots abstraits.
+- Les pictogrammes sont associés automatiquement par correspondance exacte de
+  mot-clé : c'est fiable, mais cela reste un appariement automatique. Un coup
+  d'œil avant une diffusion large ne fait pas de mal, et le fichier de
+  corrections est là pour les cas discutables.
 
 ## Raccourcis clavier
 
