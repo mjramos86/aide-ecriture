@@ -125,7 +125,10 @@ export function PanneauParametres({ parametres, onChangement, onFermer }: Props)
         ) : (
           <p className="aide">{nombreDePictogrammes()} mots illustrés par un pictogramme.</p>
         )}
-        <p className="credit">{CREDIT_ARASAAC}</p>
+        <p className="credit">
+          {CREDIT_ARASAAC}{' '}
+          <a href="licences.txt" target="_blank" rel="noopener noreferrer">Toutes les licences du site</a>.
+        </p>
       </section>
 
       <section>

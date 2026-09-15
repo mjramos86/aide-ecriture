@@ -234,6 +234,30 @@ attendues sortent bien en tête.
 
 ---
 
+## Droits et licences
+
+Tout ce que le site distribue a été inventorié. Le détail complet, avec les
+textes de licence et les avis de copyright, est publié avec le site dans
+[`licences.txt`](https://lesmotsruses.ca/licences.txt) — fichier régénéré à
+chaque construction par `npm run licences`, à partir des dépendances réelles.
+
+| Élément | Situation |
+| --- | --- |
+| **Pictogrammes** | ARASAAC — Sergio Palao, Gouvernement d'Aragon, **CC BY-NC-SA**. Attribution affichée au bas de l'application et dans les réglages. |
+| **Polices** | Aucune police distribuée : l'application nomme des polices, le système du visiteur fournit les lettres. Aucun appel à un service de polices externe. |
+| **Emojis** | Aucune image distribuée : ce sont des caractères Unicode, dessinés par la police du système. |
+| **Vocabulaire** | Écrit pour ce projet. Aucune base lexicale tierce incorporée. |
+| **Bibliothèques** | 49 composants livrés, tous sous licence permissive (MIT, Apache-2.0, ISC, BlueOak). Aucun copyleft fort : `jszip` est pris sous MIT, `dompurify` sous Apache-2.0. |
+
+⚠️ **La clause NC d'ARASAAC engage le projet** : usage scolaire, familial ou
+associatif couvert ; vendre l'outil, l'intégrer à une offre payante ou le
+monétiser par la publicité ne l'est pas. Remplacer les pictogrammes serait un
+préalable à tout usage commercial.
+
+Le dépôt n'a pas encore de fichier `LICENSE` : le code est donc, par défaut,
+« tous droits réservés ». C'est un choix à poser si vous souhaitez ouvrir le
+projet aux contributions.
+
 ## Vie privée
 
 Textes, réglages, mots ajoutés et habitudes d'écriture sont stockés dans le

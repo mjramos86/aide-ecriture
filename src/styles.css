@@ -143,6 +143,13 @@ kbd {
 }
 
 .astuce { margin: 0; font-size: 0.85rem; color: var(--texte-doux); text-align: center; line-height: 1.9; }
+.credits {
+  margin: 0; padding: 0 0 0.5rem; font-size: 0.7rem; line-height: 1.6;
+  color: var(--texte-doux); text-align: center; opacity: 0.8;
+}
+.credits a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.credits a:hover { color: var(--accent); }
+.panneau .credit a { color: inherit; }
 
 /* ── Propositions de mots ──────────────────────────────────────────────── */
 .propositions {

@@ -202,6 +202,12 @@ export function App() {
             Tape une lettre : les mots apparaissent. <kbd>↑</kbd> <kbd>↓</kbd> pour choisir, <kbd>Tab</kbd> pour écrire le mot,
             <kbd>Échap</kbd> pour continuer tout seul, <kbd>Ctrl</kbd>+<kbd>Espace</kbd> pour demander de l’aide.
           </p>
+          <footer className="credits">
+            Pictogrammes :{' '}
+            <a href="https://arasaac.org" target="_blank" rel="noopener noreferrer">ARASAAC</a>
+            {' '}— Sergio Palao, Gouvernement d’Aragon, licence CC BY-NC-SA ·{' '}
+            <a href="licences.txt" target="_blank" rel="noopener noreferrer">licences du site</a>
+          </footer>
         </section>
         {panneau === 'parametres' && (
           <PanneauParametres parametres={parametres} onChangement={setParametres} onFermer={() => setPanneau('aucun')} />
