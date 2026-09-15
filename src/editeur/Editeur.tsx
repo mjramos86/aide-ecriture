@@ -71,7 +71,7 @@ export function Editeur({ valeur, onChangement, parametres }: Props) {
     const curseur = (avant + insertion).length;
     enregistrerChoix(choix.forme, ctx.precedent);
     onChangement(nouveau);
-    if (parametres.lireProposition) dire(choix.forme, parametres.vitesseVoix);
+    if (parametres.lireProposition) dire(choix.forme, parametres.vitesseVoix, parametres.voix);
     requestAnimationFrame(() => {
       const zz = zone.current;
       if (!zz) return;
@@ -79,7 +79,7 @@ export function Editeur({ valeur, onChangement, parametres }: Props) {
       zz.setSelectionRange(curseur, curseur);
       planifier();
     });
-  }, [etat, onChangement, parametres.lireProposition, parametres.vitesseVoix, planifier]);
+  }, [etat, onChangement, parametres.lireProposition, parametres.vitesseVoix, parametres.voix, planifier]);
 
   const surTouche = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     const nb = etat.propositions.length;
@@ -156,7 +156,7 @@ export function Editeur({ valeur, onChangement, parametres }: Props) {
           position={etat.position}
           onChoisir={inserer}
           onSurvoler={setSelection}
-          onEcouter={(mot) => dire(mot, parametres.vitesseVoix)}
+          onEcouter={(mot) => dire(mot, parametres.vitesseVoix, parametres.voix)}
         />
       )}
     </div>

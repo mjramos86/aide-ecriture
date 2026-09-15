@@ -121,7 +121,7 @@ export function App() {
   const lireTexte = () => {
     if (!courant) return;
     if (speechSynthesis.speaking) { taire(); return; }
-    dire(courant.contenu, parametres.vitesseVoix);
+    dire(courant.contenu, parametres.vitesseVoix, parametres.voix);
   };
 
   if (!pret || !courant) {

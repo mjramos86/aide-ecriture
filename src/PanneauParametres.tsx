@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { POLICES, type Parametres } from './parametres';
 import { ajouterMot, motsPersonnels, supprimerMot, oublierApprentissage } from './prediction/perso';
 import { CREDIT_ARASAAC, nombreDePictogrammes } from './lexique/pictogrammes';
+import { dire, voixFrancaises, voixDistante, surChangementDeVoix, type VoixDisponible } from './voix';
 
 interface Props {
   parametres: Parametres;
@@ -47,6 +48,10 @@ function Bascule({ label, aide, actif, onChange }: { label: string; aide?: strin
 
 export function PanneauParametres({ parametres, onChangement, onFermer }: Props) {
   const [mots, setMots] = useState(motsPersonnels());
+  // Les voix sont chargées de façon asynchrone par le navigateur.
+  const [voix, setVoix] = useState<VoixDisponible[]>(voixFrancaises);
+  useEffect(() => surChangementDeVoix(() => setVoix(voixFrancaises())), []);
+  const distante = voixDistante(parametres.voix);
   const [nouveau, setNouveau] = useState('');
   const [emoji, setEmoji] = useState('');
   const maj = (partiel: Partial<Parametres>) => onChangement({ ...parametres, ...partiel });
@@ -144,6 +149,30 @@ export function PanneauParametres({ parametres, onChangement, onFermer }: Props)
         <h3>🔊 Voix</h3>
         <Bascule label="Dire le mot quand je le choisis" actif={parametres.lireProposition} onChange={(lireProposition) => maj({ lireProposition })} />
         <Curseur label="Vitesse de la voix " valeur={parametres.vitesseVoix} min={0.5} max={1.4} pas={0.05} onChange={(vitesseVoix) => maj({ vitesseVoix })} />
+        <label className="reglage">
+          <span className="reglage-nom">Quelle voix</span>
+          <select value={parametres.voix} onChange={(e) => maj({ voix: e.target.value })}>
+            <option value="">Choix automatique (une voix de l’appareil)</option>
+            {voix.map((v) => (
+              <option key={v.id} value={v.id}>
+                {v.nom} ({v.langue}) — {v.locale ? 'sur l’appareil' : 'en ligne'}
+              </option>
+            ))}
+          </select>
+        </label>
+        {voix.length === 0 ? (
+          <p className="aide">Cet appareil ne propose aucune voix française. La lecture à voix haute peut être absente ou avoir un accent étranger.</p>
+        ) : (
+          <button type="button" className="bouton discret" onClick={() => dire('Bonjour ! Je lis les mots avec toi.', parametres.vitesseVoix, parametres.voix)}>
+            🔊 Écouter cette voix
+          </button>
+        )}
+        {distante && (
+          <p className="aide avertissement">
+            ⚠️ Cette voix est fabriquée en ligne : le texte lu est envoyé à son fournisseur (Google ou Microsoft
+            selon le navigateur). Une voix « sur l’appareil » garde tout sur l’ordinateur.
+          </p>
+        )}
       </section>
 
       <section>

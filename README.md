@@ -74,7 +74,9 @@ toute correction manuelle se fait dans `src/lexique/pictogrammes-corrections.jso
 - Quatre fonds : crème, blanc, bleu doux, sombre.
 - **Règle de lecture** qui surligne la ligne en cours d'écriture.
 - **Syllabes en couleurs alternées** dans la liste des propositions.
-- **Synthèse vocale** : écouter un mot proposé avant de le choisir, ou tout le texte.
+- **Synthèse vocale** : écouter un mot proposé avant de le choisir, ou tout le
+  texte. La voix est choisie parmi celles de l'appareil, en privilégiant celles
+  qui fonctionnent sans connexion ; le choix reste modifiable dans les réglages.
 
 ### Gérer ses textes
 - Plusieurs documents, enregistrés automatiquement dans le navigateur.
@@ -292,14 +294,25 @@ projet aux contributions.
 ## Vie privée
 
 Textes, réglages, mots ajoutés et habitudes d'écriture sont stockés dans le
-`localStorage` du navigateur. Rien n'est envoyé sur un serveur, et l'application
-fonctionne sans connexion une fois chargée. Vider les données du navigateur
-efface les textes : pensez à exporter les documents importants.
+`localStorage` du navigateur. Ils ne sont envoyés nulle part : il n'y a ni
+compte, ni serveur applicatif, ni mesure d'audience. Vider les données du
+navigateur efface les textes : pensez à exporter les documents importants.
+
+**Une exception, la lecture à voix haute.** Les voix ne viennent pas de
+l'application : ce sont celles de l'appareil, exposées par le navigateur. Or
+certaines — « Google français » dans Chrome, les voix « Online » d'Edge — sont
+en réalité synthétisées sur les serveurs de leur éditeur, à qui le texte lu est
+alors transmis. L'application **préfère donc systématiquement une voix locale**,
+et ne retient une voix distante que si l'appareil n'en propose aucune autre, ou
+si elle a été explicitement choisie dans les réglages — auquel cas un
+avertissement l'indique. Le sélecteur de voix précise, pour chacune, si elle
+fonctionne « sur l'appareil » ou « en ligne ».
 
 ## Limites connues
 
 - La synthèse vocale dépend des voix installées sur l'appareil ; sans voix
-  française, la lecture peut être absente ou avoir un accent étranger.
+  française, la lecture peut être absente ou avoir un accent étranger. Les
+  réglages affichent alors un message explicite.
 - La police *OpenDyslexic* n'est proposée que si elle est installée sur
   l'ordinateur (aucune police n'est téléchargée depuis un serveur tiers).
 - Le lexique couvre le vocabulaire d'un élève de cycle 2 et 3 ; un texte très

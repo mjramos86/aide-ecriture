@@ -19,6 +19,8 @@ export interface Parametres {
   /** Voix */
   lireProposition: boolean;
   vitesseVoix: number;
+  /** Voix choisie (identifiant du navigateur) ; vide = choix automatique. */
+  voix: string;
 }
 
 export const PARAMETRES_DEFAUT: Parametres = {
@@ -38,6 +40,7 @@ export const PARAMETRES_DEFAUT: Parametres = {
   validationEntree: false,
   lireProposition: true,
   vitesseVoix: 0.9,
+  voix: '',
 };
 
 const CLE = 'aide-ecriture:parametres:v1';

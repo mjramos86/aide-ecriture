@@ -158,6 +158,9 @@ kbd {
 .credits a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 .credits a:hover { color: var(--accent); }
 .panneau .credit a { color: inherit; }
+.panneau .aide.avertissement {
+  background: var(--accent-clair); border-radius: 9px; padding: 0.5rem 0.6rem; margin-top: 0.6rem;
+}
 
 /* ── Propositions de mots ──────────────────────────────────────────────── */
 .propositions {
