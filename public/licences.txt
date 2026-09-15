@@ -5,15 +5,46 @@ Ce fichier est produit automatiquement à partir des composants réellement
 distribués avec le site. Dernière génération : 2026-09-15.
 
 
-PICTOGRAMMES
-------------
+PICTOGRAMMES — ATTRIBUTION EXIGÉE
+---------------------------------
 
-Les pictogrammes affichés à côté des mots proposés sont l'œuvre de Sergio Palao
-pour ARASAAC (https://arasaac.org), propriété du Gouvernement d'Aragon (Espagne),
-diffusés sous licence Creative Commons BY-NC-SA.
+Auteur des pictogrammes : Sergio Palao. Origine : ARASAAC
+(http://www.arasaac.org). Licence : CC (BY-NC-SA). Propriétaire :
+Gouvernement d'Aragon (Espagne)
 
-Licence complète : https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr
-La clause NC interdit tout usage commercial de ces pictogrammes.
+Formulation équivalente, également admise par ARASAAC :
+
+  Les symboles pictographiques utilisés sont la propriété du Gouvernement
+  d'Aragon et ont été créés par Sergio Palao pour ARASAAC
+  (http://www.arasaac.org), qui les distribuent sous Licence Creative
+  Commons BY-NC-SA.
+
+ARASAAC est une marque du Gouvernement d'Aragon enregistrée à l'Office
+Espagnol des Brevets et des Marques. La collection de pictogrammes est
+enregistrée au Registre Général de la Propriété Intellectuelle (dépôt légal
+Z 901-2013) en tant qu'œuvre collective au nom de la Diputación General de
+Aragón.
+
+Conditions d'utilisation :
+
+  - Licence Creative Commons BY-NC-SA :
+    https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr
+  - Usage à but non lucratif uniquement. Toute utilisation dans un produit
+    ou une publication à des fins commerciales est exclue.
+  - Tout travail dérivé doit être distribué sous la même licence, en citant
+    l'auteur, le propriétaire, l'origine et la licence.
+
+Ce que fait ce site :
+
+  - Les pictogrammes sont affichés tels quels, à côté des mots proposés.
+    Aucun n'est modifié, recoloré ni recomposé : seule leur taille
+    d'affichage est ajustée par la feuille de style.
+  - Les documents exportés (Word, PDF, texte, page web) ne contiennent que
+    le texte écrit par l'enfant. Aucun pictogramme n'y est incorporé, donc
+    aucun fichier produit par l'application n'est un travail dérivé.
+  - Le logo ARASAAC, quand il est affiché, l'est tel que fourni par ARASAAC.
+    Son usage n'est imposé que pour la signalétique de lieux publics, ce que
+    ce site n'est pas.
 
 
 POLICES DE CARACTÈRES

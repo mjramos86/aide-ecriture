@@ -243,16 +243,47 @@ chaque construction par `npm run licences`, à partir des dépendances réelles.
 
 | Élément | Situation |
 | --- | --- |
-| **Pictogrammes** | ARASAAC — Sergio Palao, Gouvernement d'Aragon, **CC BY-NC-SA**. Attribution affichée au bas de l'application et dans les réglages. |
+| **Pictogrammes** | ARASAAC — **CC BY-NC-SA**. L'attribution reprend mot pour mot l'une des deux formulations prescrites par ARASAAC ; elle est affichée au bas de l'application et dans les réglages. |
 | **Polices** | Aucune police distribuée : l'application nomme des polices, le système du visiteur fournit les lettres. Aucun appel à un service de polices externe. |
 | **Emojis** | Aucune image distribuée : ce sont des caractères Unicode, dessinés par la police du système. |
 | **Vocabulaire** | Écrit pour ce projet. Aucune base lexicale tierce incorporée. |
 | **Bibliothèques** | 49 composants livrés, tous sous licence permissive (MIT, Apache-2.0, ISC, BlueOak). Aucun copyleft fort : `jszip` est pris sous MIT, `dompurify` sous Apache-2.0. |
 
-⚠️ **La clause NC d'ARASAAC engage le projet** : usage scolaire, familial ou
-associatif couvert ; vendre l'outil, l'intégrer à une offre payante ou le
-monétiser par la publicité ne l'est pas. Remplacer les pictogrammes serait un
-préalable à tout usage commercial.
+### Les conditions d'ARASAAC en détail
+
+L'attribution affichée est celle qu'ARASAAC prescrit, reprise sans reformulation :
+
+> Auteur des pictogrammes : Sergio Palao. Origine : ARASAAC (http://www.arasaac.org).
+> Licence : CC (BY-NC-SA). Propriétaire : Gouvernement d'Aragon (Espagne)
+
+⚠️ **La clause NC engage le projet** : usage scolaire, familial ou associatif
+couvert ; vendre l'outil, l'intégrer à une offre payante ou le monétiser par la
+publicité ne l'est pas. Remplacer les pictogrammes serait un préalable à tout
+usage commercial.
+
+**Partage à l'identique.** Tout travail dérivé des pictogrammes doit être
+distribué sous la même licence. L'application n'en produit aucun : les
+pictogrammes sont affichés tels quels — seule leur taille d'affichage est
+ajustée — et **les documents exportés ne contiennent que le texte de l'enfant**,
+jamais d'image. Recolorer, recadrer ou recomposer un pictogramme ferait en
+revanche basculer le résultat sous CC BY-NC-SA.
+
+**Logo ARASAAC.** Son affichage n'est imposé que pour la signalétique de lieux
+publics, de services ou de commerces — ce que ce site n'est pas — mais il est
+affiché au bas de l'application, à côté de l'attribution.
+
+Le fichier est celui fourni par ARASAAC (`public/logo_ARASAAC.png`), servi tel
+quel : ni redessiné, ni recoloré, ni recadré. Seule sa hauteur d'affichage est
+fixée par la feuille de style. En thème sombre, il est posé sur une pastille
+blanche pour rester lisible, sans que l'image soit modifiée. La version
+monochrome (`public/logo_ARASAAC_black.png`) est conservée pour l'impression et
+la photocopie. Si le fichier venait à manquer, la ligne d'attribution s'affiche
+seule, sans image cassée.
+
+**Marque.** ARASAAC est une marque déposée du Gouvernement d'Aragon et la
+collection est enregistrée au Registre Général de la Propriété Intellectuelle
+(dépôt légal Z 901-2013). Le nom n'est cité ici que comme source des
+pictogrammes : rien ne doit laisser entendre un partenariat ou une approbation.
 
 Le dépôt n'a pas encore de fichier `LICENSE` : le code est donc, par défaut,
 « tous droits réservés ». C'est un choix à poser si vous souhaitez ouvrir le

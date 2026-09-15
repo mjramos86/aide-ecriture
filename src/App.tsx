@@ -7,6 +7,7 @@ import { lireParametres, ecrireParametres, type Parametres } from './parametres'
 import { exporter, imprimer, FORMATS, type Format } from './export/exporter';
 import { dire, taire, voixDisponible, preparerVoix } from './voix';
 import { lexique } from './lexique';
+import { CREDIT_ARASAAC_AUTEUR, CREDIT_ARASAAC_ORIGINE, CREDIT_ARASAAC_URL, CREDIT_ARASAAC_FIN, LOGO_ARASAAC, LOGO_ARASAAC_LARGEUR, LOGO_ARASAAC_HAUTEUR } from './lexique/pictogrammes';
 
 export function App() {
   const [pret, setPret] = useState(false);
@@ -15,6 +16,8 @@ export function App() {
   const [parametres, setParametres] = useState<Parametres>(lireParametres);
   const [panneau, setPanneau] = useState<'aucun' | 'parametres' | 'export'>('aucun');
   const [message, setMessage] = useState<string | null>(null);
+  // Le logo ARASAAC n'est affiché que si le fichier a été déposé dans public/.
+  const [logoAbsent, setLogoAbsent] = useState(false);
   const minuterie = useRef<number | undefined>(undefined);
 
   // Le dictionnaire (près de 14 000 formes) est construit une seule fois.
@@ -202,11 +205,28 @@ export function App() {
             Tape une lettre : les mots apparaissent. <kbd>↑</kbd> <kbd>↓</kbd> pour choisir, <kbd>Tab</kbd> pour écrire le mot,
             <kbd>Échap</kbd> pour continuer tout seul, <kbd>Ctrl</kbd>+<kbd>Espace</kbd> pour demander de l’aide.
           </p>
+          {/* Attribution reprise mot pour mot dans la formulation prescrite par ARASAAC. */}
           <footer className="credits">
-            Pictogrammes :{' '}
-            <a href="https://arasaac.org" target="_blank" rel="noopener noreferrer">ARASAAC</a>
-            {' '}— Sergio Palao, Gouvernement d’Aragon, licence CC BY-NC-SA ·{' '}
-            <a href="licences.txt" target="_blank" rel="noopener noreferrer">licences du site</a>
+            {!logoAbsent && (
+              <a href={CREDIT_ARASAAC_URL} target="_blank" rel="noopener noreferrer" className="lien-logo">
+                <img
+                  className="logo-arasaac"
+                  src={LOGO_ARASAAC}
+                  alt="ARASAAC"
+                  width={LOGO_ARASAAC_LARGEUR}
+                  height={LOGO_ARASAAC_HAUTEUR}
+                  loading="lazy"
+                  decoding="async"
+                  onError={() => setLogoAbsent(true)}
+                />
+              </a>
+            )}
+            <span>
+              {CREDIT_ARASAAC_AUTEUR} {CREDIT_ARASAAC_ORIGINE} (
+              <a href={CREDIT_ARASAAC_URL} target="_blank" rel="noopener noreferrer">{CREDIT_ARASAAC_URL}</a>
+              ). {CREDIT_ARASAAC_FIN} ·{' '}
+              <a href="licences.txt" target="_blank" rel="noopener noreferrer">licences du site</a>
+            </span>
           </footer>
         </section>
         {panneau === 'parametres' && (

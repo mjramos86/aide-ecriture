@@ -10,14 +10,34 @@
  * télécharge les images dans `public/pictos/`. Tant qu’elle est vide,
  * l’application affiche simplement les emojis : rien ne casse.
  *
- * Pictogrammes : Sergio Palao pour ARASAAC (arasaac.org), propriété du
- * Gouvernement d’Aragon, sous licence CC BY-NC-SA.
+ * Auteur des pictogrammes : Sergio Palao. Origine : ARASAAC (http://www.arasaac.org).
+ * Licence : CC (BY-NC-SA). Propriétaire : Gouvernement d’Aragon (Espagne).
+ *
+ * Ce libellé est l'une des deux formulations d'attribution prescrites par
+ * ARASAAC : il est repris tel quel, sans reformulation.
  */
 import table from './pictogrammes.json';
 import corrections from './pictogrammes-corrections.json';
 
-export const CREDIT_ARASAAC =
-  'Pictogrammes : Sergio Palao pour ARASAAC (arasaac.org), propriété du Gouvernement d’Aragon, licence CC BY-NC-SA.';
+/**
+ * Attribution exigée par ARASAAC, reprise mot pour mot dans la formulation
+ * qu'ils prescrivent. À ne pas reformuler : c'est une condition de la licence.
+ */
+export const CREDIT_ARASAAC_AUTEUR = 'Auteur des pictogrammes : Sergio Palao.';
+export const CREDIT_ARASAAC_ORIGINE = 'Origine : ARASAAC';
+export const CREDIT_ARASAAC_URL = 'http://www.arasaac.org';
+export const CREDIT_ARASAAC_FIN = 'Licence : CC (BY-NC-SA). Propriétaire : Gouvernement d’Aragon (Espagne)';
+export const CREDIT_ARASAAC = `${CREDIT_ARASAAC_AUTEUR} ${CREDIT_ARASAAC_ORIGINE} (${CREDIT_ARASAAC_URL}). ${CREDIT_ARASAAC_FIN}`;
+/**
+ * Logo officiel d'ARASAAC, tel qu'il est fourni par eux : il n'est ni
+ * redessiné, ni recoloré, ni recadré — seule sa taille d'affichage est fixée.
+ * La version noire sert aux contextes monochromes (impression, photocopie).
+ */
+export const LOGO_ARASAAC = 'logo_ARASAAC.png';
+export const LOGO_ARASAAC_NOIR = 'logo_ARASAAC_black.png';
+/** Proportions du fichier fourni, pour réserver la place avant son chargement. */
+export const LOGO_ARASAAC_LARGEUR = 2083;
+export const LOGO_ARASAAC_HAUTEUR = 495;
 
 const automatiques = table as Record<string, number>;
 const manuelles = corrections as Record<string, number | null | string>;
