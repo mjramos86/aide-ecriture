@@ -103,7 +103,8 @@ l'école…), sans base de données.
 
 Le site est publié automatiquement par GitHub Actions, à partir du dépôt.
 
-**Adresse du site : <https://mjramos86.github.io/aide-ecriture/>**
+**Adresse du site : <https://lesmotsruses.ca>**
+(l'adresse d'origine <https://mjramos86.github.io/aide-ecriture/> y redirige.)
 
 À chaque `git push`, le workflow `.github/workflows/deploiement.yml` :
 
@@ -133,11 +134,32 @@ quel sur n'importe quel hébergement (Netlify, Vercel, un serveur de l'école, u
 clé USB). Les chemins sont relatifs : le site fonctionne aussi bien à la racine
 d'un domaine que dans un sous-dossier.
 
-### Nom de domaine personnalisé
+### Le nom de domaine
 
-Ajouter un fichier `public/CNAME` contenant le domaine (par exemple
-`lesmotsruses.fr`), puis configurer le DNS chez le registrar comme indiqué dans
-Settings → Pages.
+Le site répond sur **lesmotsruses.ca**, domaine enregistré chez WHC.
+
+Deux morceaux tiennent cette configuration, et il faut les deux :
+
+- **`public/CNAME`** contient le domaine. Vite le recopie dans `dist/`, il fait
+  donc partie de chaque publication. Sans lui, un déploiement peut faire perdre
+  le domaine à GitHub, puisque chaque publication remplace tout le contenu.
+- **Settings → Pages → Custom domain** enregistre le domaine côté GitHub et
+  déclenche l'émission du certificat. Cochez **Enforce HTTPS** une fois le
+  certificat obtenu (quelques minutes à quelques heures après la propagation DNS).
+
+Zone DNS chez le registrar :
+
+| Type | Nom | Valeur |
+| --- | --- | --- |
+| A | `@` | `185.199.108.153` |
+| A | `@` | `185.199.109.153` |
+| A | `@` | `185.199.110.153` |
+| A | `@` | `185.199.111.153` |
+| CNAME | `www` | `mjramos86.github.io.` |
+
+Les adresses IP de GitHub Pages sont à revérifier dans leur documentation en cas
+de reconfiguration. Pour revenir à l'adresse `github.io`, il suffit de supprimer
+`public/CNAME` et de vider le champ *Custom domain*.
 
 ---
 
